@@ -22,3 +22,4 @@ For a detailed explanation on how things work, check out the [guide](http://vuej
 
 然后我又加了一段莫名其妙的东西
 然后我又加了一段奇奇怪怪的东西
+哈哈哈哈哈
