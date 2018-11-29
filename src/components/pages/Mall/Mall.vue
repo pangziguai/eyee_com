@@ -7,7 +7,7 @@
                         <i class="fa fa-search" aria-hidden="true"></i>
                         <input type="text" placeholder='Search'>
                     </div>
-                    <div class="right">
+                    <div class="right" @click='toCar'>
                         <i class="fa fa-shopping-cart" aria-hidden="true"></i>
                     </div>
                 </div>
@@ -47,6 +47,9 @@
                 window.localStorage.setItem('sele',this.selected);
                 console.log(this.selected);
                 this.$router.replace('/mall/'+str);
+            },
+            toCar(){
+                this.$router.push('/shoppingCart');
             }
         }
     }

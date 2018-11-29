@@ -3,7 +3,7 @@
         <div class="back" @click='back'>
             <i class="fa fa-angle-left" aria-hidden="true"></i>
         </div>
-        <div class="cart">
+        <div class="cart" @click='toCar'>
             <i class="fa fa-shopping-cart" aria-hidden="true"></i>
         </div>
         <mt-swipe :auto="0" :continuous='false'>
@@ -47,6 +47,9 @@
                 进店逛逛
             </div>
         </div>
+        <div class="tocar">
+            <div class="car" @click='toCart'>加入购物车</div>
+        </div>
     </div>
 </template>
 <script>
@@ -83,6 +86,7 @@
                         this.loading = false;
                         this.details = res.data.data.info;
                         this.mainpic = this.details.mainpic.split('|');
+                        this.details.num = 1;
                     }else{
                         console.log(res).statusText;
                     }
@@ -95,6 +99,41 @@
             },
             back(){
                 this.$router.go(-1);
+            },
+            toCart(){
+                let toast = Toast({
+                    message: '成功加入购物车！',
+                    iconClass: "fa fa-check-circle",
+                    duration: 1500
+                });
+                let currentId = this.details.id;
+                let pushItem = this.details;
+                let goodsList = localStorage.getItem('goodsList');
+                if(goodsList == null){
+                    let newList = [];
+                    newList.push(pushItem);
+                    window.localStorage.setItem('goodsList',JSON.stringify(newList));
+                }else if(goodsList != null){
+                    let newList = JSON.parse(goodsList);
+                    let ids = newList.map(function(item){
+                        return item.id;
+                    });
+                    if (ids.indexOf(currentId) != -1){
+                        newList.forEach(function(item){
+                            if(item.id == currentId){
+                                item.num = item.num + 1;
+                                window.localStorage.setItem('goodsList',JSON.stringify(newList));
+                            }
+                        })
+                    }else{
+                        newList.push(pushItem);
+                        window.localStorage.setItem('goodsList',JSON.stringify(newList));
+                    }
+                    
+                }
+            },
+            toCar(){
+                this.$router.push('/shoppingCart');
             }
         },
         mounted(){
@@ -244,6 +283,26 @@
             .fs(26);
             color:#eee;
             opacity:.6;
+        }
+        .tocar{
+            .w(375);
+            .h(50);
+            position:fixed;
+            background-color: #fff;
+            bottom: 0;
+            left: 0;
+            z-index:9999;
+            border-top: 1px solid #eee;
+            .car{
+                .w(120);
+                background-color: #333;
+                color:#fff;
+                .h(50);
+                float: right;
+                .lh(50);
+                text-align: center;
+                .fs(16);
+            }
         }
     }
 </style>

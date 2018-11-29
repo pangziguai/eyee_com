@@ -14,6 +14,7 @@ import MallZhekou from '../components/pages/Mall/Mall-zhekou.vue'
 import Mine from '../components/pages/Mine/Mine.vue'
 import DetailShoes from '../components/commons/Details/DetailShoes'
 import DetailOthers from '../components/commons/Details/DetailOthers'
+import ShoppingCart from '../components/commons/ShoppingCart/ShoppingCart.vue'
 export default new Router({
     routes: [
         {path: '/',redirect:'/home'},
@@ -31,5 +32,6 @@ export default new Router({
         {path:'/mine',component:Mine,name:'mine'},
         {path:'/detailshoes/:goodId',component:DetailShoes,name:'detailshoes'},
         {path:'/detailothers/:goodId',component:DetailOthers,name:'detailothers'},
+        {path:'/shoppingCart',component:ShoppingCart,name:'shoppingcart'},
     ]
 })
